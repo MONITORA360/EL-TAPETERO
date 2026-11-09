@@ -22,7 +22,7 @@ html{scroll-behavior:smooth}h1,h2,h3,.d{font-family:'Bricolage Grotesque',Figtre
 @keyframes bump{50%{transform:scale(1.25)}}.bump{animation:bump .3s}
 .view{animation:pop .35s ease-out}
 .tile .ov{transform:translateY(101%);transition:transform .45s cubic-bezier(.65,0,.25,1)}.tile:hover .ov,.tile:focus-visible .ov{transform:none}
-.stripe{background:repeating-linear-gradient(45deg,#C8102E 0 12px,#000 12px 24px)}
+.sl{position:absolute;inset:0;opacity:0;transition:opacity 1.4s ease}.sl.on{opacity:1}.sl img{width:100%;height:100%;object-fit:cover;transform:scale(1.1);transition:transform 7s ease-out}.sl.on img{transform:scale(1)}
 .clamp2{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .pg{width:794px;height:1123px;background:#fff;position:relative;overflow:hidden;font-family:Figtree,sans-serif;color:#000}
 .pg .hd{padding:34px 40px 0}.pg .ft{position:absolute;left:40px;right:40px;bottom:22px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#444;border-top:2px solid #C8102E;padding-top:8px}
@@ -30,7 +30,7 @@ html{scroll-behavior:smooth}h1,h2,h3,.d{font-family:'Bricolage Grotesque',Figtre
 .pg .ca{height:218px;overflow:hidden}.pg .ca img{width:100%;height:150px;object-fit:cover;border-radius:4px;display:block}
 .pg .ca b{display:block;font-size:12px;line-height:1.2;margin-top:6px;height:29px;overflow:hidden}.pg .ca span{font-size:11px;color:#555;display:block}.pg .ca i{font-style:normal;font-weight:800;color:#C8102E;font-size:14px}
 .pg h4{font:800 17px 'Bricolage Grotesque';margin:6px 40px 10px;padding-left:10px;border-left:6px solid #C8102E;height:26px;line-height:26px}
-@media (prefers-reduced-motion:reduce){.rug,.roll{animation:none}.rug{clip-path:none}.roll{left:calc(100% - 36px)}html{scroll-behavior:auto}}
+@media (prefers-reduced-motion:reduce){.rug,.roll{animation:none}.rug{clip-path:none}.roll{left:calc(100% - 36px)}html{scroll-behavior:auto}.sl img{transform:none;transition:none}}
 </style>
 </head>
 <body class="font-b bg-white text-black antialiased">
@@ -47,6 +47,7 @@ html{scroll-behavior:smooth}h1,h2,h3,.d{font-family:'Bricolage Grotesque',Figtre
  </div>
  <div id="mn" class="hidden lg:hidden border-t px-4 py-3 grid gap-2 font-semibold"></div>
 </header>
+<div class="bg-rojo text-white text-center px-4 py-2.5 text-sm md:text-base font-semibold" role="note">Descubre nuestra variedad de diseños, renovados en cada temporada. ¡Consulta los modelos disponibles y encuentra tus favoritos!</div>
 <main id="app" class="min-h-[70vh]"></main>
 <footer class="bg-black text-white mt-20">
  <div class="max-w-6xl mx-auto px-4 py-14 grid md:grid-cols-3 gap-10">
@@ -87,7 +88,7 @@ const key=s=>String(s).trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u
 const tc=s=>{s=String(s).trim();return s.charAt(0).toUpperCase()+s.slice(1).toLowerCase()};
 const $$=n=>n==null?'Consultar precio':'$'+n.toLocaleString('es-CO');
 const im=e=>{e.onerror=null;e.src=PH};
-let P=[],AREAS=[],cart=JSON.parse(localStorage.getItem('tap_cart')||'{}'),charts=[],cur=[];
+let P=[],AREAS=[],cart=JSON.parse(localStorage.getItem('tap_cart')||'{}'),charts=[],cur=[],tm=null,gs=()=>{};
 const byId=id=>P.find(p=>p.id==id);
 const src=p=>C.img+encodeURI(p.file);
 function parse(buf){
@@ -108,7 +109,7 @@ const card=p=>`<article class="group bg-white rounded-lg border border-neutral-2
  <button data-o="${p.id}" class="block aspect-square overflow-hidden bg-hilo" aria-label="Ver ${esc(p.name)}"><img loading="lazy" src="${esc(src(p))}" alt="${esc(p.name)}" onerror="im(this)" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></button>
  <div class="p-4 flex flex-col gap-1 flex-1"><h4 class="font-semibold leading-tight clamp2">${esc(p.name)}</h4><p class="text-sm text-neutral-600">${esc(p.med)}</p>
  <div class="mt-auto pt-3 flex items-center justify-between gap-2"><b class="d text-lg ${p.price==null?'text-neutral-500 text-sm':'text-rojo'}">${$$(p.price)}</b><button data-a="${p.id}" class="rounded-full bg-black hover:bg-rojo text-white text-sm font-semibold px-4 py-2 transition">Agregar</button></div></div></article>`;
-function kill(){charts.forEach(c=>c.destroy());charts=[]}
+function kill(){charts.forEach(c=>c.destroy());charts=[];clearInterval(tm)}
 function route(){
  kill();const h=decodeURIComponent(location.hash||'#/');scrollTo(0,0);
  if(!P.length)return;
@@ -131,14 +132,21 @@ function home(){
   <div class="bg-white rounded-lg p-5 shadow"><h3 class="font-bold mb-2">Catálogo en cifras: productos por espacio</h3><canvas id="ch1" height="200"></canvas></div></div></section></div>`;
  charts.push(new Chart($('#ch1'),{type:'doughnut',data:{labels:AREAS.map(a=>a.n),datasets:[{data:AREAS.map(a=>P.filter(p=>p.ak==a.k).length),backgroundColor:['#C8102E','#000','#8E0B21','#9a9ca3','#e23a52','#444'],borderWidth:2}]},options:{plugins:{legend:{position:'right'}},cutout:'58%'}}));
 }
+function pick(l){const g=groups(l),r=[];Object.values(g).forEach(x=>r.push(x[0]));for(let j=1;j<12&&r.length<6;j++)Object.values(g).forEach(x=>{if(x[j]&&r.length<6)r.push(x[j])});return r.slice(0,6)}
+function carousel(){
+ const s=[...document.querySelectorAll('.sl')],d=[...document.querySelectorAll('.dt')];if(s.length<2)return;let i=0;
+ gs=n=>{s[i].classList.remove('on');d[i].classList.remove('bg-white');i=(n+s.length)%s.length;s[i].classList.add('on');d[i].classList.add('bg-white');clearInterval(tm);if(!matchMedia('(prefers-reduced-motion:reduce)').matches)tm=setInterval(()=>gs(i+1),5000)};gs(0);
+}
 function area(a){
  const l=P.filter(p=>p.ak==a.k),g=groups(l),t=TXT[a.k]||['Descubre nuestra selección.',''];cur=l.map(p=>p.id);
- $('#app').innerHTML=`<div class="view"><section class="stripe"><div class="bg-black/70"><div class="max-w-6xl mx-auto px-4 py-14 text-white"><p class="text-sm"><a href="#/" class="underline">Inicio</a> / ${a.n}</p><h1 class="mt-3 text-5xl md:text-7xl font-extrabold">${a.n}</h1><p class="mt-3 text-2xl font-semibold max-w-2xl">${t[0]}</p><p class="mt-3 max-w-2xl text-neutral-200">${t[1]}</p></div></div></section>
+ const sp=pick(l),sl=sp.map((p,i)=>`<div class="sl${i?'':' on'}"><img src="${esc(src(p))}" alt="" onerror="im(this)"></div>`).join(''),dots=sp.length>1?`<div class="mt-6 flex gap-2">${sp.map((p,i)=>`<button data-d="${i}" class="dt h-2.5 w-8 rounded-full border border-white ${i?'':'bg-white'}" aria-label="Ver imagen ${i+1}"></button>`).join('')}</div>`:'';
+ $('#app').innerHTML=`<div class="view"><section class="relative overflow-hidden bg-black min-h-[400px] md:min-h-[460px] flex items-end">${sl}<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/50"></div><div class="relative z-10 w-full"><div class="max-w-6xl mx-auto px-4 pt-24 pb-12 text-white [text-shadow:0_2px_14px_rgba(0,0,0,.7)]"><p class="text-sm"><a href="#/" class="underline">Inicio</a> / ${a.n}</p><h1 class="mt-3 text-5xl md:text-7xl font-extrabold">${a.n}</h1><p class="mt-3 text-2xl font-semibold max-w-2xl">${t[0]}</p><p class="mt-3 max-w-2xl text-neutral-200">${t[1]}</p>${dots}</div></div></section>
  <nav class="sticky top-[72px] z-20 bg-white border-b"><div class="max-w-6xl mx-auto px-4 py-3 flex gap-2 overflow-x-auto">${Object.keys(g).map(c=>`<button data-s="${esc(c)}" class="shrink-0 rounded-full border border-neutral-300 hover:border-rojo hover:text-rojo px-4 py-1.5 text-sm font-semibold transition">${esc(c)} <span class="text-neutral-500">${g[c].length}</span></button>`).join('')}</div></nav>
  <div class="max-w-6xl mx-auto px-4">${Object.keys(g).map(c=>`<section data-c="${esc(c)}" class="pt-14 scroll-mt-32"><div class="flex items-end justify-between border-b-4 border-black pb-2 mb-6"><h2 class="text-3xl font-extrabold">${esc(c)}</h2><span class="text-neutral-500">${g[c].length} productos</span></div><div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">${g[c].map(card).join('')}</div></section>`).join('')}
  <section class="pt-16"><div class="bg-hilo rounded-lg p-5"><h3 class="font-bold mb-2">Precio promedio por categoría en ${a.n}</h3><canvas id="ch2" height="${Math.max(90,Object.keys(g).length*28)}"></canvas></div></section></div></div>`;
  const ks=Object.keys(g),av=ks.map(c=>{const v=g[c].filter(p=>p.price!=null).map(p=>p.price);return v.length?Math.round(v.reduce((x,y)=>x+y,0)/v.length):0});
  charts.push(new Chart($('#ch2'),{type:'bar',data:{labels:ks,datasets:[{data:av,backgroundColor:'#C8102E',borderRadius:4}]},options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>$$(c.raw)}}},scales:{x:{ticks:{callback:v=>'$'+v.toLocaleString('es-CO')}}}}}));
+ carousel();
 }
 function busca(q){
  q=key(q||'');const l=q?P.filter(p=>key(p.name+' '+p.cat+' '+p.area).includes(q)):[];cur=l.map(p=>p.id);
@@ -176,7 +184,7 @@ $('#send').onclick=()=>{
 async function pdf(){
  if(!P.length)return;const ov=$('#ov'),bar=$('#ovb'),tx=$('#ovt');ov.classList.remove('hidden');ov.classList.add('grid');
  const ft=(n,t)=>`<div class="ft"><span style="display:flex;align-items:center;gap:10px"><img src="${C.logo}" style="height:26px" crossorigin="anonymous"> Detalles que visten tu hogar</span><span>WhatsApp +57 316 335 1033 &nbsp;|&nbsp; ${n} / ${t}</span></div>`;
- const pages=[`<div class="pg" style="background:#C8102E;color:#fff"><div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(0,0,0,.14) 0 22px,transparent 22px 44px)"></div><div style="position:absolute;left:60px;right:60px;top:90px"><span style="display:inline-block;background:#fff;border-radius:8px;padding:14px 20px"><img src="${C.logo}" style="height:70px;display:block" crossorigin="anonymous"></span><div style="font:800 74px/1 'Bricolage Grotesque';margin-top:240px">Catálogo<br>de productos</div><div style="font-size:24px;margin-top:26px;max-width:520px">Tu hogar, nuestro lugar favorito.</div></div><div style="position:absolute;left:60px;bottom:60px;font-size:15px">Lencería y detalles para el hogar<br>Pedidos por WhatsApp +57 316 335 1033<br>${new Date().toLocaleDateString('es-CO',{month:'long',year:'numeric'})}</div></div>`];
+ const pages=[`<div class="pg" style="background:#C8102E;color:#fff"><div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(0,0,0,.14) 0 22px,transparent 22px 44px)"></div><div style="position:absolute;left:60px;right:60px;top:90px"><span style="display:inline-block;background:#fff;border-radius:8px;padding:14px 20px"><img src="${C.logo}" style="height:70px;display:block" crossorigin="anonymous"></span><div style="font:800 74px/1 'Bricolage Grotesque';margin-top:240px">Catálogo<br>de productos</div><div style="font-size:24px;margin-top:26px;max-width:520px">Tu hogar, nuestro lugar favorito.</div><div style="font-size:17px;margin-top:34px;max-width:520px;line-height:1.5;border-left:5px solid #fff;padding-left:14px">Descubre nuestra variedad de diseños, renovados en cada temporada. ¡Consulta los modelos disponibles y encuentra tus favoritos!</div></div><div style="position:absolute;left:60px;bottom:60px;font-size:15px">Lencería y detalles para el hogar<br>Pedidos por WhatsApp +57 316 335 1033<br>${new Date().toLocaleDateString('es-CO',{month:'long',year:'numeric'})}</div></div>`];
  const meta=[];
  AREAS.forEach(a=>{const g=groups(P.filter(p=>p.ak==a.k)),rows=[];
   Object.keys(g).forEach(c=>{rows.push({h:c});for(let i=0;i<g[c].length;i+=3)rows.push({r:g[c].slice(i,i+3)})});
@@ -198,8 +206,9 @@ async function pdf(){
 }
 /* eventos */
 document.addEventListener('click',e=>{
- const t=e.target.closest('[data-o],[data-a],[data-x],[data-q],[data-s]');if(!t)return;
- if(t.dataset.o)openM(t.dataset.o);
+ const t=e.target.closest('[data-o],[data-a],[data-x],[data-q],[data-s],[data-d]');if(!t)return;
+ if(t.dataset.d!==undefined)gs(+t.dataset.d);
+ else if(t.dataset.o)openM(t.dataset.o);
  else if(t.dataset.a)add(t.dataset.a);
  else if(t.dataset.x)$('#'+t.dataset.x).classList.add('hidden');
  else if(t.dataset.q){const[id,d]=t.dataset.q.split(',');if(d=='0')delete cart[id];else{cart[id]+=+d;if(cart[id]<1)delete cart[id]}save();drawer()}
