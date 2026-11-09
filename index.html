@@ -27,8 +27,8 @@ html{scroll-behavior:smooth}h1,h2,h3,.d{font-family:'Bricolage Grotesque',Figtre
 .pg{width:794px;height:1123px;background:#fff;position:relative;overflow:hidden;font-family:Figtree,sans-serif;color:#000}
 .pg .hd{padding:34px 40px 0}.pg .ft{position:absolute;left:40px;right:40px;bottom:22px;display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#444;border-top:2px solid #C8102E;padding-top:8px}
 .pg .gr{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;padding:0 40px}
-.pg .ca{height:218px;overflow:hidden}.pg .ca img{width:100%;height:150px;object-fit:cover;border-radius:4px;display:block}
-.pg .ca b{display:block;font-size:12px;line-height:1.2;margin-top:6px;height:29px;overflow:hidden}.pg .ca span{font-size:11px;color:#555;display:block}.pg .ca i{font-style:normal;font-weight:800;color:#C8102E;font-size:14px}
+.pg .ca{display:flex;flex-direction:column;align-items:flex-start}.pg .ca img{width:100%;height:130px;object-fit:cover;border-radius:4px;display:block}
+.pg .ca b{display:block;font-size:12px;line-height:15px;margin-top:8px}.pg .ca span{font-size:11px;line-height:14px;color:#555;display:block;margin-top:4px}.pg .ca i{margin-top:auto;font-style:normal;font-weight:800;color:#fff;background:#C8102E;font-size:15px;line-height:20px;padding:3px 11px;border-radius:14px}
 .pg h4{font:800 17px 'Bricolage Grotesque';margin:6px 40px 10px;padding-left:10px;border-left:6px solid #C8102E;height:26px;line-height:26px}
 @media (prefers-reduced-motion:reduce){.rug,.roll{animation:none}.rug{clip-path:none}.roll{left:calc(100% - 36px)}html{scroll-behavior:auto}.sl img{transform:none;transition:none}}
 </style>
@@ -184,16 +184,16 @@ $('#send').onclick=()=>{
 async function pdf(){
  if(!P.length)return;const ov=$('#ov'),bar=$('#ovb'),tx=$('#ovt');ov.classList.remove('hidden');ov.classList.add('grid');
  const ft=(n,t)=>`<div class="ft"><span style="display:flex;align-items:center;gap:10px"><img src="${C.logo}" style="height:26px" crossorigin="anonymous"> Detalles que visten tu hogar</span><span>WhatsApp +57 316 335 1033 &nbsp;|&nbsp; ${n} / ${t}</span></div>`;
- const pages=[`<div class="pg" style="background:#C8102E;color:#fff"><div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(0,0,0,.14) 0 22px,transparent 22px 44px)"></div><div style="position:absolute;left:60px;right:60px;top:90px"><span style="display:inline-block;background:#fff;border-radius:8px;padding:14px 20px"><img src="${C.logo}" style="height:70px;display:block" crossorigin="anonymous"></span><div style="font:800 74px/1 'Bricolage Grotesque';margin-top:240px">Catálogo<br>de productos</div><div style="font-size:24px;margin-top:26px;max-width:520px">Tu hogar, nuestro lugar favorito.</div><div style="font-size:17px;margin-top:34px;max-width:520px;line-height:1.5;border-left:5px solid #fff;padding-left:14px">Descubre nuestra variedad de diseños, renovados en cada temporada. ¡Consulta los modelos disponibles y encuentra tus favoritos!</div></div><div style="position:absolute;left:60px;bottom:60px;font-size:15px">Lencería y detalles para el hogar<br>Pedidos por WhatsApp +57 316 335 1033<br>${new Date().toLocaleDateString('es-CO',{month:'long',year:'numeric'})}</div></div>`];
- const meta=[];
+ const pages=[`<div class="pg" style="background:#C8102E;color:#fff"><div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(0,0,0,.14) 0 22px,transparent 22px 44px)"></div><div style="position:absolute;left:60px;right:60px;top:90px"><span style="display:inline-block;background:#fff;border-radius:8px;padding:14px 20px"><img src="${C.logo}" style="height:70px;display:block" crossorigin="anonymous"></span><div style="font:800 74px/1 'Bricolage Grotesque';margin-top:240px">CATÁLOGO<br>MAYORISTA</div><div style="font-size:24px;margin-top:26px;max-width:520px">Tu hogar, nuestro lugar favorito.</div><div style="font-size:17px;margin-top:34px;max-width:520px;line-height:1.5;border-left:5px solid #fff;padding-left:14px">Descubre nuestra variedad de diseños, renovados en cada temporada. ¡Consulta los modelos disponibles y encuentra tus favoritos!</div></div><div style="position:absolute;left:60px;bottom:60px;font-size:15px">Lencería y detalles para el hogar<br>Pedidos por WhatsApp +57 316 335 1033<br>${new Date().toLocaleDateString('es-CO',{month:'long',year:'numeric'})}</div></div>`];
+ const meta=[],nl=s=>Math.max(1,Math.ceil(String(s).length/31)),ml=s=>Math.max(1,Math.ceil(String(s).length/36)),rh=r=>138+Math.max(...r.map(p=>nl(p.name)))*15+4+Math.max(...r.map(p=>ml(p.med)))*14+8+28+16;
  AREAS.forEach(a=>{const g=groups(P.filter(p=>p.ak==a.k)),rows=[];
-  Object.keys(g).forEach(c=>{rows.push({h:c});for(let i=0;i<g[c].length;i+=3)rows.push({r:g[c].slice(i,i+3)})});
+  Object.keys(g).forEach(c=>{rows.push({h:c});for(let i=0;i<g[c].length;i+=3){const r=g[c].slice(i,i+3);rows.push({r,hh:rh(r)})}});
   let pg=null,hh=0;const nuevo=first=>{pg=[];hh=first?1123-60-190:1123-60-70;meta.push({a,first,pg})};
-  nuevo(true);rows.forEach(x=>{const h=x.h?44:232;if(h>hh)nuevo(false);hh-=h;pg.push(x)});
+  nuevo(true);rows.forEach(x=>{const h=x.h?44:x.hh;if(h>hh)nuevo(false);hh-=h;pg.push(x)});
  });
  const total=meta.length+1;
  meta.forEach((m,i)=>{const t=TXT[m.a.k]||['',''];
-  pages.push(`<div class="pg"><div class="hd">${m.first?`<div style="background:#000;color:#fff;padding:22px 26px;border-radius:6px;border-left:12px solid #C8102E"><div style="font:800 40px 'Bricolage Grotesque'">${m.a.n}</div><div style="font-size:14px;margin-top:4px;color:#ddd">${t[0]}</div></div>`:`<div style="font:800 15px 'Bricolage Grotesque';color:#C8102E">${m.a.n}</div>`}</div><div style="height:16px"></div>${m.pg.map(x=>x.h?`<h4>${esc(x.h)}</h4>`:`<div class="gr" style="margin-bottom:14px">${x.r.map(p=>`<div class="ca"><img src="${esc(src(p))}" crossorigin="anonymous" onerror="im(this)"><b>${esc(p.name)}</b><span>${esc(p.med)}</span><i>${p.price==null?'Consultar':$$(p.price)}</i></div>`).join('')}</div>`).join('')}${ft(i+2,total)}</div>`)});
+  pages.push(`<div class="pg"><div class="hd">${m.first?`<div style="background:#000;color:#fff;padding:22px 26px;border-radius:6px;border-left:12px solid #C8102E"><div style="font:600 12px Figtree;letter-spacing:.16em;color:#ddd;margin-bottom:6px">CATÁLOGO MAYORISTA</div><div style="font:800 40px 'Bricolage Grotesque'">${m.a.n}</div><div style="font-size:14px;margin-top:4px;color:#ddd">${t[0]}</div></div>`:`<div style="display:flex;justify-content:space-between;font:800 15px 'Bricolage Grotesque'"><span style="color:#C8102E">${m.a.n}</span><span>CATÁLOGO MAYORISTA</span></div>`}</div><div style="height:16px"></div>${m.pg.map(x=>x.h?`<h4>${esc(x.h)}</h4>`:`<div class="gr" style="height:${x.hh-14}px;margin-bottom:14px">${x.r.map(p=>`<div class="ca"><img src="${esc(src(p))}" crossorigin="anonymous" onerror="im(this)"><b>${esc(p.name)}</b><span>${esc(p.med)}</span><i>${p.price==null?'Consultar precio':$$(p.price)}</i></div>`).join('')}</div>`).join('')}${ft(i+2,total)}</div>`)});
  const {jsPDF}=window.jspdf,doc=new jsPDF('p','mm','a4'),root=$('#pdfroot');
  try{for(let i=0;i<pages.length;i++){
   tx.textContent=`Página ${i+1} de ${pages.length}`;bar.style.width=Math.round(i/pages.length*100)+'%';
@@ -201,7 +201,7 @@ async function pdf(){
   await Promise.all(imgs.map(m=>m.complete?1:new Promise(r=>{m.onload=m.onerror=r})));
   const cv=await html2canvas(root.firstChild,{scale:1.5,useCORS:true,backgroundColor:'#fff'});
   if(i)doc.addPage();doc.addImage(cv.toDataURL('image/jpeg',.85),'JPEG',0,0,210,297);
- }doc.save('Catalogo-El-Tapetero.pdf')}catch(e){alert('No se pudo crear el PDF. Abre el sitio desde GitHub Pages (no como archivo local).')}
+ }doc.save('Catalogo-Mayorista-El-Tapetero.pdf')}catch(e){alert('No se pudo crear el PDF. Abre el sitio desde GitHub Pages (no como archivo local).')}
  root.innerHTML='';ov.classList.add('hidden');ov.classList.remove('grid');
 }
 /* eventos */
