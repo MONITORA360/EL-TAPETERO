@@ -30,6 +30,7 @@ html{scroll-behavior:smooth}h1,h2,h3,.d{font-family:'Bricolage Grotesque',Figtre
 .pg .ca{display:flex;flex-direction:column;align-items:flex-start}.pg .ca img{width:100%;height:130px;object-fit:cover;border-radius:4px;display:block}
 .pg .ca b{display:block;font-size:12px;line-height:15px;margin-top:8px}.pg .ca span{font-size:11px;line-height:14px;color:#555;display:block;margin-top:4px}.pg .ca i{margin-top:auto;font-style:normal;font-weight:800;color:#fff;background:#C8102E;font-size:15px;line-height:20px;padding:3px 11px;border-radius:14px}
 .pg h4{font:800 17px 'Bricolage Grotesque';margin:6px 40px 10px;padding-left:10px;border-left:6px solid #C8102E;height:26px;line-height:26px}
+.pg .ca u{text-decoration:none;display:flex;justify-content:space-between;gap:8px;width:100%;font-size:11px;line-height:15px;border-bottom:1px dotted #bbb}.pg .ca em{font-style:normal;color:#222}.pg .ca s{text-decoration:none;font-weight:800;color:#C8102E;white-space:nowrap}
 @media (prefers-reduced-motion:reduce){.rug,.roll{animation:none}.rug{clip-path:none}.roll{left:calc(100% - 36px)}html{scroll-behavior:auto}.sl img{transform:none;transition:none}}
 </style>
 </head>
@@ -40,8 +41,10 @@ html{scroll-behavior:smooth}h1,h2,h3,.d{font-family:'Bricolage Grotesque',Figtre
   <nav id="nav" class="hidden lg:flex gap-5 ml-4 font-semibold"></nav>
   <div class="ml-auto flex items-center gap-2">
    <input id="q" type="search" placeholder="Buscar producto" aria-label="Buscar producto" class="hidden sm:block w-48 rounded-full border border-neutral-300 px-4 py-2 text-sm focus:border-rojo">
-   <button id="pdfb" class="hidden md:inline-flex rounded-full border-2 border-black px-4 py-2 text-sm font-semibold hover:bg-black hover:text-white transition">Catálogo PDF</button>
-   <button id="cb" class="relative rounded-full bg-rojo hover:bg-rojo2 text-white px-4 py-2 text-sm font-semibold transition" aria-label="Abrir carrito">Carrito <span id="cn" class="ml-1 inline-block min-w-[1.4rem] rounded-full bg-white text-rojo px-1.5">0</span></button>
+   <button data-pdf="may" class="hidden xl:inline-flex rounded-full border-2 border-black px-4 py-2 text-sm font-semibold hover:bg-black hover:text-white transition">PDF Mayorista</button>
+   <button data-pdf="min" class="hidden xl:inline-flex rounded-full border-2 border-black px-4 py-2 text-sm font-semibold hover:bg-black hover:text-white transition">PDF Minorista</button>
+   <a href="https://www.instagram.com/el_tapetero/" target="_blank" rel="noopener" aria-label="Instagram de El Tapetero" class="grid place-items-center w-10 h-10 rounded-full hover:bg-hilo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+   <a href="https://wa.me/573192249187" target="_blank" rel="noopener" class="rounded-full bg-rojo hover:bg-rojo2 text-white px-4 py-2 text-sm font-semibold transition">Escríbenos</a>
    <button id="mb" class="lg:hidden p-2" aria-label="Menú"><svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button>
   </div>
  </div>
@@ -53,26 +56,19 @@ html{scroll-behavior:smooth}h1,h2,h3,.d{font-family:'Bricolage Grotesque',Figtre
  <div class="max-w-6xl mx-auto px-4 py-14 grid md:grid-cols-3 gap-10">
   <div><span class="inline-block bg-white rounded-md px-3 py-2"><img src="logot.jpg" alt="El Tapetero" class="h-10"></span><p class="mt-4 text-neutral-300 max-w-xs">Detalles que visten tu hogar y hacen especial cada espacio.</p></div>
   <div><h3 class="font-bold text-lg mb-3">Espacios</h3><ul id="fl" class="grid gap-2 text-neutral-300"></ul></div>
-  <div><h3 class="font-bold text-lg mb-3">Pedidos</h3><p class="text-neutral-300">Arma tu carrito y envíanos el pedido completo por WhatsApp.</p><a href="https://wa.me/573163351033" class="mt-4 inline-block rounded-full bg-rojo hover:bg-rojo2 px-6 py-3 font-semibold transition">+57 316 335 1033</a></div>
+  <div><h3 class="font-bold text-lg mb-3">Pedidos</h3><p class="text-neutral-300">Escríbenos y te contamos qué modelos hay disponibles.</p><a href="https://wa.me/573192249187" target="_blank" rel="noopener" class="mt-4 inline-block rounded-full bg-rojo hover:bg-rojo2 px-6 py-3 font-semibold transition">WhatsApp +57 319 224 9187</a>
+  <p class="mt-3"><a href="https://www.instagram.com/el_tapetero/" target="_blank" rel="noopener" class="text-neutral-300 hover:text-white underline">Instagram @el_tapetero</a></p>
+  <div class="mt-5 flex flex-wrap gap-2"><button data-pdf="may" class="rounded-full bg-white text-black px-4 py-2 text-sm font-semibold hover:bg-rojo hover:text-white transition">Catálogo Mayorista PDF</button><button data-pdf="min" class="rounded-full border border-white px-4 py-2 text-sm font-semibold hover:bg-white hover:text-black transition">Catálogo Minorista PDF</button></div></div>
  </div>
  <p class="border-t border-neutral-800 text-center text-sm text-neutral-400 py-5">© <span id="yr"></span> El Tapetero. Lencería y detalles para el hogar.</p>
 </footer>
-<a href="https://wa.me/573163351033" id="wa" aria-label="Pedidos por WhatsApp" class="fixed right-4 bottom-4 z-30 grid place-items-center w-14 h-14 rounded-full bg-black text-white shadow-xl hover:bg-rojo transition"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.8 14.1c-.2.7-1.4 1.3-2 1.3-.5.1-1.2.1-3.8-1-3.2-1.4-5.2-4.6-5.4-4.8-.1-.2-1.3-1.7-1.3-3.2s.8-2.3 1.1-2.6c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.8-.1 1.4Z"/></svg></a>
-<div id="dr" class="fixed inset-0 z-40 hidden"><div class="absolute inset-0 bg-black/50" data-x="dr"></div>
- <aside class="absolute right-0 top-0 h-full w-full max-w-md bg-white flex flex-col pop" role="dialog" aria-label="Carrito">
-  <div class="flex items-center justify-between p-5 border-b"><h2 class="text-2xl font-extrabold">Tu pedido</h2><button data-x="dr" class="text-3xl leading-none px-2" aria-label="Cerrar">&times;</button></div>
-  <div id="cl" class="flex-1 overflow-auto p-5 grid gap-4 content-start"></div>
-  <div class="p-5 border-t grid gap-3 bg-hilo"><div class="flex justify-between text-lg"><span>Total estimado</span><b id="ct" class="d text-2xl"></b></div>
-   <input id="cname" placeholder="Tu nombre" class="rounded-lg border border-neutral-300 px-3 py-2"><textarea id="cnote" rows="2" placeholder="Notas o dirección de entrega" class="rounded-lg border border-neutral-300 px-3 py-2"></textarea>
-   <button id="send" class="rounded-full bg-rojo hover:bg-rojo2 text-white font-semibold py-3 transition">Enviar pedido por WhatsApp</button>
-   <button id="clr" class="text-sm underline text-neutral-600">Vaciar carrito</button></div>
- </aside></div>
+<a href="https://wa.me/573192249187" id="wa" aria-label="Pedidos por WhatsApp" class="fixed right-4 bottom-4 z-30 grid place-items-center w-14 h-14 rounded-full bg-black text-white shadow-xl hover:bg-rojo transition"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm5.8 14.1c-.2.7-1.4 1.3-2 1.3-.5.1-1.2.1-3.8-1-3.2-1.4-5.2-4.6-5.4-4.8-.1-.2-1.3-1.7-1.3-3.2s.8-2.3 1.1-2.6c.3-.3.6-.4.8-.4h.6c.2 0 .4 0 .6.5l.9 2.1c.1.2.1.4 0 .5l-.4.6-.4.4c-.1.2-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1 2.1 1.4 2.4 1.5.3.1.5.1.6-.1l.9-1.1c.2-.3.4-.2.6-.1l2 1c.3.1.5.2.5.3.1.2.1.8-.1 1.4Z"/></svg></a>
 <div id="md" class="fixed inset-0 z-50 hidden grid place-items-center p-3"><div class="absolute inset-0 bg-black/70" data-x="md"></div><div id="mc" class="relative bg-white rounded-xl max-w-4xl w-full max-h-[92vh] overflow-auto pop grid md:grid-cols-2" role="dialog" aria-modal="true"></div></div>
 <div id="ov" class="fixed inset-0 z-[60] hidden place-items-center bg-black/80 text-white text-center p-6"><div><div class="d text-3xl font-extrabold">Armando tu catálogo</div><p id="ovt" class="mt-2 text-neutral-300">Preparando páginas</p><div class="mt-5 h-2 w-64 bg-neutral-700 rounded"><div id="ovb" class="h-2 bg-rojo rounded" style="width:0"></div></div></div></div>
 <div id="pdfroot" style="position:fixed;left:-9999px;top:0"></div>
 
 <script>
-const C={xl:'prompt.xlsx',img:'img/',logo:'logot.jpg',wa:'573163351033'};
+const C={xl:['prompt_1.xlsx','prompt.xlsx'],img:'img/',logo:'logot.jpg',wa:'573192249187'};
 const TXT={
  'baño':['Pequeños detalles, grandes momentos de bienestar.','Convierte tu baño en un espacio de comodidad y armonía. Descubre nuestra selección de tapetes, textiles y accesorios diseñados para aportar suavidad, funcionalidad y estilo.'],
  'cocina':['El corazón del hogar también merece estilo.','Dale vida a tu cocina con detalles que combinan practicidad y diseño. Productos que aportan calidez, color y personalidad.'],
@@ -88,27 +84,30 @@ const key=s=>String(s).trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u
 const tc=s=>{s=String(s).trim();return s.charAt(0).toUpperCase()+s.slice(1).toLowerCase()};
 const $$=n=>n==null?'Consultar precio':'$'+n.toLocaleString('es-CO');
 const im=e=>{e.onerror=null;e.src=PH};
-let P=[],AREAS=[],cart=JSON.parse(localStorage.getItem('tap_cart')||'{}'),charts=[],cur=[],tm=null,gs=()=>{};
+let P=[],AREAS=[],charts=[],cur=[],tm=null,gs=()=>{};
 const byId=id=>P.find(p=>p.id==id);
 const src=p=>C.img+encodeURI(p.file);
+const wa=t=>`https://wa.me/${C.wa}?text=${encodeURIComponent(t)}`;
+const wa0=wa('¡Hola, El Tapetero! 😊 Quisiera conocer más sobre sus productos y los modelos disponibles. ¡Muchas gracias!');
 function parse(buf){
- const ws=XLSX.read(buf,{type:'array'});const sh=ws.Sheets[ws.SheetNames[0]];
- const r=XLSX.utils.sheet_to_json(sh,{header:1,defval:''});
- let fi=r[0].findIndex(h=>/archivo|imagen|foto/i.test(h));if(fi<0)fi=6;
+ const ws=XLSX.read(buf,{type:'array'}),r=XLSX.utils.sheet_to_json(ws.Sheets[ws.SheetNames[0]],{header:1,defval:''});
+ let fi=r[0].findIndex(h=>/foto|imagen|archivo/i.test(h));if(fi<0)fi=r[0].length-1;
  P=r.slice(1).filter(x=>String(x[2]).trim()&&String(x[fi]).trim()).map((x,i)=>{
-  const ar=tc(x[0]),c=String(x[1]).trim(),ck=key(c);
-  return{id:i,area:ar,ak:key(ar),cat:CAT[ck]||tc(c),name:String(x[2]).trim().replace(/\s+/g,' '),med:String(x[3]).trim(),price:typeof x[4]==='number'?x[4]:null,file:String(x[fi]).trim()}});
+  const ar=tc(x[0]),c=String(x[1]).trim(),refs=[];
+  for(let k=3;k+1<fi;k+=2){const f=String(x[k]).trim().replace(/\s+/g,' ');if(f){const v=x[k+1],pr=typeof v==='number'?v:(parseFloat(String(v).replace(/[^\d]/g,''))||null);refs.push({r:f,p:pr})}}
+  return{id:i,area:ar,ak:key(ar),cat:CAT[key(c)]||tc(c),name:String(x[2]).trim().replace(/\s+/g,' '),refs,file:String(x[fi]).trim()}});
  const ks=[...new Set(P.map(p=>p.ak))];
  AREAS=ks.sort((a,b)=>(ORD.indexOf(a)+1||99)-(ORD.indexOf(b)+1||99)).map(k=>({k,n:P.find(p=>p.ak==k).area}));
  const l=AREAS.map(a=>`<a href="#/a/${a.k}" class="hover:text-rojo">${a.n}</a>`).join('');
- $('#nav').innerHTML=l;$('#mn').innerHTML=l+'<button id="pdfm" class="text-left">Catálogo PDF</button>';$('#fl').innerHTML=l.replace(/hover:text-rojo/g,'hover:text-white');
- $('#pdfm').onclick=pdf;route();
+ $('#nav').innerHTML=l;$('#mn').innerHTML=l+'<button data-pdf="may" class="text-left">Catálogo Mayorista (PDF)</button><button data-pdf="min" class="text-left">Catálogo Minorista (PDF)</button>';$('#fl').innerHTML=l.replace(/hover:text-rojo/g,'hover:text-white');
+ route();
 }
 function groups(list){const m={};list.forEach(p=>(m[p.cat]=m[p.cat]||[]).push(p));return m}
+const chips=(p,n)=>p.refs.slice(0,n).map(x=>`<span class="inline-block rounded-full bg-hilo border border-neutral-200 px-2.5 py-1 text-xs font-semibold">${esc(x.r)}</span>`).join('')+(p.refs.length>n?`<span class="text-xs text-neutral-500 self-center">+${p.refs.length-n} más</span>`:'');
 const card=p=>`<article class="group bg-white rounded-lg border border-neutral-200 overflow-hidden flex flex-col hover:shadow-xl transition">
  <button data-o="${p.id}" class="block aspect-square overflow-hidden bg-hilo" aria-label="Ver ${esc(p.name)}"><img loading="lazy" src="${esc(src(p))}" alt="${esc(p.name)}" onerror="im(this)" class="w-full h-full object-cover group-hover:scale-105 transition duration-500"></button>
- <div class="p-4 flex flex-col gap-1 flex-1"><h4 class="font-semibold leading-tight clamp2">${esc(p.name)}</h4><p class="text-sm text-neutral-600">${esc(p.med)}</p>
- <div class="mt-auto pt-3 flex items-center justify-between gap-2"><b class="d text-lg ${p.price==null?'text-neutral-500 text-sm':'text-rojo'}">${$$(p.price)}</b><button data-a="${p.id}" class="rounded-full bg-black hover:bg-rojo text-white text-sm font-semibold px-4 py-2 transition">Agregar</button></div></div></article>`;
+ <div class="p-4 flex flex-col gap-2 flex-1"><h4 class="font-semibold leading-tight clamp2">${esc(p.name)}</h4><div class="flex flex-wrap gap-1.5">${chips(p,3)}</div>
+ <button data-o="${p.id}" class="mt-auto pt-2 text-left text-sm font-semibold text-rojo underline underline-offset-4">Ver referencias</button></div></article>`;
 function kill(){charts.forEach(c=>c.destroy());charts=[];clearInterval(tm)}
 function route(){
  kill();const h=decodeURIComponent(location.hash||'#/');scrollTo(0,0);
@@ -121,13 +120,14 @@ function home(){
  $('#app').innerHTML=`<div class="view">
  <section class="max-w-6xl mx-auto px-4 grid lg:grid-cols-2 gap-10 items-center py-12 lg:py-20">
   <div><h1 class="text-5xl md:text-7xl font-extrabold leading-[1.02]">Haz de tu hogar tu lugar favorito.</h1><p class="mt-6 text-xl text-neutral-700 max-w-lg">Diseño, comodidad y detalles que transforman tus espacios.</p>
-  <div class="mt-8 flex flex-wrap gap-3"><a href="#espacios" onclick="document.getElementById('espacios').scrollIntoView();return false" class="rounded-full bg-rojo hover:bg-rojo2 text-white font-semibold px-7 py-3.5 transition">Explorar la colección</a><a href="https://wa.me/${C.wa}" class="rounded-full border-2 border-black font-semibold px-7 py-3.5 hover:bg-black hover:text-white transition">Pedir por WhatsApp</a></div></div>
+  <div class="mt-8 flex flex-wrap gap-3"><a href="#espacios" onclick="document.getElementById('espacios').scrollIntoView();return false" class="rounded-full bg-rojo hover:bg-rojo2 text-white font-semibold px-7 py-3.5 transition">Explorar la colección</a><a href="${wa0}" target="_blank" rel="noopener" class="rounded-full border-2 border-black font-semibold px-7 py-3.5 hover:bg-black hover:text-white transition">Escríbenos por WhatsApp</a></div></div>
   <div class="relative"><div class="rug rounded-md overflow-hidden grid grid-cols-2 gap-1 aspect-[5/4] bg-rojo">${mos.map(p=>`<img src="${esc(src(p))}" alt="${esc(p.name)}" onerror="im(this)" class="w-full h-full object-cover">`).join('')}</div><span class="roll absolute -top-2 -bottom-2 w-[42px] rounded-full shadow-xl" aria-hidden="true"></span></div>
  </section>
  <section class="bg-black text-white"><div class="max-w-6xl mx-auto px-4 py-16 grid md:grid-cols-3 gap-8">
   ${[['Estilo','Productos que hacen lucir mejor cada espacio.'],['Comodidad','Funcionalidad y bienestar para todos los días.'],['Inspiración','Ideas para renovar y disfrutar tu hogar.']].map(x=>`<div class="border-t-4 border-rojo pt-4"><h3 class="text-2xl font-extrabold">${x[0]}</h3><p class="mt-2 text-neutral-300">${x[1]}</p></div>`).join('')}</div></section>
  <section id="espacios" class="max-w-6xl mx-auto px-4 py-20 scroll-mt-20"><h2 class="text-4xl md:text-5xl font-extrabold">Tu hogar, nuestro lugar favorito.</h2><p class="mt-4 max-w-2xl text-lg text-neutral-700">Seleccionamos productos que combinan diseño, comodidad y funcionalidad para darle personalidad a cada espacio de tu casa.</p>
   <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-${Math.min(AREAS.length,4)} gap-5">${AREAS.map((a,i)=>`<a href="#/a/${a.k}" class="tile relative block aspect-[3/4] overflow-hidden rounded-lg bg-hilo"><img src="${esc(src(feat[i]))}" alt="" onerror="im(this)" class="w-full h-full object-cover"><div class="absolute inset-x-0 bottom-0 p-5 bg-gradient-to-t from-black/80 to-transparent text-white"><h3 class="text-3xl font-extrabold">${a.n}</h3><p class="text-sm">${P.filter(p=>p.ak==a.k).length} productos</p></div><div class="ov absolute inset-0 bg-rojo/95 text-white p-6 flex flex-col justify-end"><h3 class="text-3xl font-extrabold">${a.n}</h3><p class="mt-2">${(TXT[a.k]||['',''])[0]}</p><span class="mt-4 font-semibold underline">Ver productos</span></div></a>`).join('')}</div></section>
+ <section class="bg-rojo text-white"><div class="max-w-6xl mx-auto px-4 py-12 flex flex-col md:flex-row md:items-center justify-between gap-6"><div><h2 class="text-3xl md:text-4xl font-extrabold">Lleva todo el catálogo contigo</h2><p class="mt-2 text-red-100 max-w-xl">Descárgalo en PDF: versión mayorista con precios o versión minorista sin precios.</p></div><div class="flex flex-wrap gap-3"><button data-pdf="may" class="rounded-full bg-white text-rojo font-semibold px-6 py-3 hover:bg-black hover:text-white transition">Catálogo Mayorista</button><button data-pdf="min" class="rounded-full border-2 border-white font-semibold px-6 py-3 hover:bg-white hover:text-rojo transition">Catálogo Minorista</button></div></div></section>
  <section class="bg-hilo"><div class="max-w-6xl mx-auto px-4 py-16 grid lg:grid-cols-2 gap-10 items-center"><div><h2 class="text-4xl font-extrabold">Nuestra filosofía</h2><p class="mt-4 text-lg text-neutral-700">Creemos que un hogar especial se construye con pequeños detalles. Cada producto es una oportunidad para renovar tus espacios, expresar tu estilo y disfrutar más de cada momento.</p><p class="mt-6 d text-2xl font-extrabold text-rojo">Inspírate. Renueva. Disfruta.</p></div>
   <div class="bg-white rounded-lg p-5 shadow"><h3 class="font-bold mb-2">Catálogo en cifras: productos por espacio</h3><canvas id="ch1" height="200"></canvas></div></div></section></div>`;
  charts.push(new Chart($('#ch1'),{type:'doughnut',data:{labels:AREAS.map(a=>a.n),datasets:[{data:AREAS.map(a=>P.filter(p=>p.ak==a.k).length),backgroundColor:['#C8102E','#000','#8E0B21','#9a9ca3','#e23a52','#444'],borderWidth:2}]},options:{plugins:{legend:{position:'right'}},cutout:'58%'}}));
@@ -143,57 +143,40 @@ function area(a){
  $('#app').innerHTML=`<div class="view"><section class="relative overflow-hidden bg-black min-h-[400px] md:min-h-[460px] flex items-end">${sl}<div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/50"></div><div class="relative z-10 w-full"><div class="max-w-6xl mx-auto px-4 pt-24 pb-12 text-white [text-shadow:0_2px_14px_rgba(0,0,0,.7)]"><p class="text-sm"><a href="#/" class="underline">Inicio</a> / ${a.n}</p><h1 class="mt-3 text-5xl md:text-7xl font-extrabold">${a.n}</h1><p class="mt-3 text-2xl font-semibold max-w-2xl">${t[0]}</p><p class="mt-3 max-w-2xl text-neutral-200">${t[1]}</p>${dots}</div></div></section>
  <nav class="sticky top-[72px] z-20 bg-white border-b"><div class="max-w-6xl mx-auto px-4 py-3 flex gap-2 overflow-x-auto">${Object.keys(g).map(c=>`<button data-s="${esc(c)}" class="shrink-0 rounded-full border border-neutral-300 hover:border-rojo hover:text-rojo px-4 py-1.5 text-sm font-semibold transition">${esc(c)} <span class="text-neutral-500">${g[c].length}</span></button>`).join('')}</div></nav>
  <div class="max-w-6xl mx-auto px-4">${Object.keys(g).map(c=>`<section data-c="${esc(c)}" class="pt-14 scroll-mt-32"><div class="flex items-end justify-between border-b-4 border-black pb-2 mb-6"><h2 class="text-3xl font-extrabold">${esc(c)}</h2><span class="text-neutral-500">${g[c].length} productos</span></div><div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">${g[c].map(card).join('')}</div></section>`).join('')}
- <section class="pt-16"><div class="bg-hilo rounded-lg p-5"><h3 class="font-bold mb-2">Precio promedio por categoría en ${a.n}</h3><canvas id="ch2" height="${Math.max(90,Object.keys(g).length*28)}"></canvas></div></section></div></div>`;
- const ks=Object.keys(g),av=ks.map(c=>{const v=g[c].filter(p=>p.price!=null).map(p=>p.price);return v.length?Math.round(v.reduce((x,y)=>x+y,0)/v.length):0});
- charts.push(new Chart($('#ch2'),{type:'bar',data:{labels:ks,datasets:[{data:av,backgroundColor:'#C8102E',borderRadius:4}]},options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>$$(c.raw)}}},scales:{x:{ticks:{callback:v=>'$'+v.toLocaleString('es-CO')}}}}}));
+ <section class="pt-16"><div class="bg-hilo rounded-lg p-5"><h3 class="font-bold mb-2">Productos por categoría en ${a.n}</h3><canvas id="ch2" height="${Math.max(90,Object.keys(g).length*28)}"></canvas></div></section></div></div>`;
+ const ks=Object.keys(g),av=ks.map(c=>g[c].length);
+ charts.push(new Chart($('#ch2'),{type:'bar',data:{labels:ks,datasets:[{data:av,backgroundColor:'#C8102E',borderRadius:4}]},options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{ticks:{precision:0}}}}}));
  carousel();
 }
 function busca(q){
  q=key(q||'');const l=q?P.filter(p=>key(p.name+' '+p.cat+' '+p.area).includes(q)):[];cur=l.map(p=>p.id);
  $('#app').innerHTML=`<div class="max-w-6xl mx-auto px-4 py-12 view"><h1 class="text-4xl font-extrabold">Resultados de la búsqueda</h1><p class="mt-2 text-neutral-600">${l.length} productos encontrados</p><div class="mt-8 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">${l.map(card).join('')}</div></div>`;
 }
-/* tarjeta emergente */
+/* tarjeta emergente: foto, nombre y referencias (sin precios) */
 function openM(id){
- const p=byId(id),i=cur.indexOf(+id),pl=q=>`Hola El Tapetero, quisiera pedir:\n• ${q} x ${p.name} (${p.med}) - ${p.price==null?'precio por confirmar':$$(p.price*q)}`;
+ const p=byId(id),i=cur.indexOf(+id),msg=`¡Hola! 😊 Vi en su catálogo el producto «${p.name}» y me encantaría saber más. ¿Me cuentan qué referencias y diseños tienen disponibles? ¡Muchas gracias!`;
  $('#mc').innerHTML=`<div class="bg-hilo"><img src="${esc(src(p))}" alt="${esc(p.name)}" onerror="im(this)" class="w-full h-full max-h-[60vh] md:max-h-none object-cover"></div>
- <div class="p-6 md:p-8 flex flex-col gap-3"><button data-x="md" class="self-end text-3xl leading-none" aria-label="Cerrar">&times;</button><p class="text-sm font-semibold text-rojo">${p.area} / ${esc(p.cat)}</p><h2 class="text-3xl font-extrabold leading-tight">${esc(p.name)}</h2><p class="text-neutral-700"><b>Medidas y presentación:</b> ${esc(p.med)||'Consultar'}</p><p class="d text-4xl font-extrabold ${p.price==null?'text-neutral-500 text-2xl':''}">${$$(p.price)}</p>
- <div class="flex items-center gap-3 mt-2"><div class="flex items-center border rounded-full"><button id="qm" class="w-10 h-10 text-xl" aria-label="Menos">-</button><b id="qn" class="w-8 text-center">1</b><button id="qp" class="w-10 h-10 text-xl" aria-label="Más">+</button></div><button id="qa" class="flex-1 rounded-full bg-rojo hover:bg-rojo2 text-white font-semibold py-3 transition">Agregar al carrito</button></div>
- <a id="qw" class="rounded-full border-2 border-black text-center font-semibold py-3 hover:bg-black hover:text-white transition" href="#" target="_blank" rel="noopener">Pedir solo este por WhatsApp</a>
+ <div class="p-6 md:p-8 flex flex-col gap-4"><button data-x="md" class="self-end text-3xl leading-none" aria-label="Cerrar">&times;</button><p class="text-sm font-semibold text-rojo">${p.area} / ${esc(p.cat)}</p><h2 class="text-3xl font-extrabold leading-tight">${esc(p.name)}</h2>
+ <div><p class="font-semibold mb-2">Referencias disponibles</p><div class="flex flex-wrap gap-2 text-base">${chips(p,99)}</div></div>
+ <a class="mt-2 rounded-full bg-rojo hover:bg-rojo2 text-white text-center font-semibold py-3 transition" target="_blank" rel="noopener" href="${wa(msg)}">Consultar este producto por WhatsApp</a>
  <div class="mt-auto flex justify-between text-sm pt-4"><button id="pv" class="underline ${i<1?'invisible':''}">Anterior</button><button id="nx" class="underline ${i<0||i>=cur.length-1?'invisible':''}">Siguiente</button></div></div>`;
- $('#md').classList.remove('hidden');let q=1;const nq=$('#qn'),up=()=>{nq.textContent=q;$('#qw').href=wa(pl(q))};up();
- $('#qm').onclick=()=>{q=Math.max(1,q-1);up()};$('#qp').onclick=()=>{q++;up()};
- $('#qa').onclick=()=>{add(id,q);$('#md').classList.add('hidden')};
+ $('#md').classList.remove('hidden');
  $('#pv').onclick=()=>openM(cur[i-1]);$('#nx').onclick=()=>openM(cur[i+1]);
 }
-const wa=t=>`https://wa.me/${C.wa}?text=${encodeURIComponent(t)}`;
-/* carrito */
-function save(){localStorage.setItem('tap_cart',JSON.stringify(cart));const n=Object.values(cart).reduce((a,b)=>a+b,0);$('#cn').textContent=n;$('#cn').classList.remove('bump');void $('#cn').offsetWidth;$('#cn').classList.add('bump')}
-function add(id,q=1){cart[id]=(cart[id]||0)+q;save();drawer(true)}
-function lines(){return Object.entries(cart).map(([id,q])=>({p:byId(id),q})).filter(x=>x.p)}
-function drawer(show){
- const L=lines(),tot=L.reduce((s,x)=>s+(x.p.price||0)*x.q,0);
- $('#cl').innerHTML=L.length?L.map(({p,q})=>`<div class="flex gap-3"><img src="${esc(src(p))}" onerror="im(this)" alt="" class="w-20 h-20 object-cover rounded"><div class="flex-1 min-w-0"><p class="font-semibold leading-tight clamp2">${esc(p.name)}</p><p class="text-sm text-neutral-600">${esc(p.med)}</p><div class="mt-1 flex items-center gap-2"><button data-q="${p.id},-1" class="w-7 h-7 border rounded-full" aria-label="Menos">-</button><b>${q}</b><button data-q="${p.id},1" class="w-7 h-7 border rounded-full" aria-label="Más">+</button><button data-q="${p.id},0" class="ml-auto text-sm underline">Quitar</button></div></div><b class="text-sm whitespace-nowrap">${p.price==null?'Por confirmar':$$(p.price*q)}</b></div>`).join(''):'<p class="text-neutral-600">Tu carrito está vacío. Elige productos y envíanos tu pedido por WhatsApp.</p>';
- $('#ct').textContent=$$(tot);if(show)$('#dr').classList.remove('hidden');$('#send').disabled=!L.length;$('#send').classList.toggle('opacity-50',!L.length);
-}
-$('#send').onclick=()=>{
- const L=lines();if(!L.length)return;const tot=L.reduce((s,x)=>s+(x.p.price||0)*x.q,0),pen=L.filter(x=>x.p.price==null).length,nm=$('#cname').value.trim(),nt=$('#cnote').value.trim();
- const t=`Hola El Tapetero, quisiera hacer este pedido${nm?' a nombre de '+nm:''}:\n\n`+L.map(({p,q})=>`• ${q} x ${p.name} (${p.med}) - ${p.price==null?'precio por confirmar':$$(p.price*q)}`).join('\n')+`\n\nTotal estimado: ${$$(tot)}`+(pen?`\n(${pen} producto(s) con precio por confirmar)`:'')+(nt?`\n\nNotas: ${nt}`:'');
- window.open(wa(t),'_blank');
-};
-/* catálogo PDF */
-async function pdf(){
- if(!P.length)return;const ov=$('#ov'),bar=$('#ovb'),tx=$('#ovt');ov.classList.remove('hidden');ov.classList.add('grid');
- const ft=(n,t)=>`<div class="ft"><span style="display:flex;align-items:center;gap:10px"><img src="${C.logo}" style="height:26px" crossorigin="anonymous"> Detalles que visten tu hogar</span><span>WhatsApp +57 316 335 1033 &nbsp;|&nbsp; ${n} / ${t}</span></div>`;
- const pages=[`<div class="pg" style="background:#C8102E;color:#fff"><div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(0,0,0,.14) 0 22px,transparent 22px 44px)"></div><div style="position:absolute;left:60px;right:60px;top:90px"><span style="display:inline-block;background:#fff;border-radius:8px;padding:14px 20px"><img src="${C.logo}" style="height:70px;display:block" crossorigin="anonymous"></span><div style="font:800 74px/1 'Bricolage Grotesque';margin-top:240px">CATÁLOGO<br>MAYORISTA</div><div style="font-size:24px;margin-top:26px;max-width:520px">Tu hogar, nuestro lugar favorito.</div><div style="font-size:17px;margin-top:34px;max-width:520px;line-height:1.5;border-left:5px solid #fff;padding-left:14px">Descubre nuestra variedad de diseños, renovados en cada temporada. ¡Consulta los modelos disponibles y encuentra tus favoritos!</div></div><div style="position:absolute;left:60px;bottom:60px;font-size:15px">Lencería y detalles para el hogar<br>Pedidos por WhatsApp +57 316 335 1033<br>${new Date().toLocaleDateString('es-CO',{month:'long',year:'numeric'})}</div></div>`];
- const meta=[],nl=s=>Math.max(1,Math.ceil(String(s).length/31)),ml=s=>Math.max(1,Math.ceil(String(s).length/36)),rh=r=>138+Math.max(...r.map(p=>nl(p.name)))*15+4+Math.max(...r.map(p=>ml(p.med)))*14+8+28+16;
+/* catálogos PDF: mayorista (con precios) y minorista (sin precios) */
+async function pdf(mode){
+ if(!P.length)return;const may=mode==='may',T=may?'MAYORISTA':'MINORISTA',ov=$('#ov'),bar=$('#ovb'),tx=$('#ovt');ov.classList.remove('hidden');ov.classList.add('grid');
+ const ft=(n,t)=>`<div class="ft"><span style="display:flex;align-items:center;gap:10px"><img src="${C.logo}" style="height:26px" crossorigin="anonymous"> Instagram @el_tapetero</span><span>WhatsApp +57 319 224 9187 &nbsp;|&nbsp; ${n} / ${t}</span></div>`;
+ const pages=[`<div class="pg" style="background:#C8102E;color:#fff"><div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,rgba(0,0,0,.14) 0 22px,transparent 22px 44px)"></div><div style="position:absolute;left:60px;right:60px;top:90px"><span style="display:inline-block;background:#fff;border-radius:8px;padding:14px 20px"><img src="${C.logo}" style="height:70px;display:block" crossorigin="anonymous"></span><div style="font:800 74px/1 'Bricolage Grotesque';margin-top:240px">CATÁLOGO<br>${T}</div><div style="font-size:24px;margin-top:26px;max-width:520px">Tu hogar, nuestro lugar favorito.</div><div style="font-size:17px;margin-top:34px;max-width:520px;line-height:1.5;border-left:5px solid #fff;padding-left:14px">Descubre nuestra variedad de diseños, renovados en cada temporada. ¡Consulta los modelos disponibles y encuentra tus favoritos!</div></div><div style="position:absolute;left:60px;bottom:60px;font-size:15px;line-height:1.6">Lencería y detalles para el hogar<br>Pedidos por WhatsApp +57 319 224 9187<br>Instagram @el_tapetero<br>${new Date().toLocaleDateString('es-CO',{month:'long',year:'numeric'})}</div></div>`];
+ const meta=[],nl=s=>Math.max(1,Math.ceil(String(s).length/31)),rl=p=>p.refs.reduce((n,x)=>n+Math.max(1,Math.ceil(x.r.length/(may?27:34))),0),rh=r=>138+Math.max(...r.map(p=>nl(p.name)))*15+10+Math.max(...r.map(rl))*15+16;
  AREAS.forEach(a=>{const g=groups(P.filter(p=>p.ak==a.k)),rows=[];
   Object.keys(g).forEach(c=>{rows.push({h:c});for(let i=0;i<g[c].length;i+=3){const r=g[c].slice(i,i+3);rows.push({r,hh:rh(r)})}});
   let pg=null,hh=0;const nuevo=first=>{pg=[];hh=first?1123-60-190:1123-60-70;meta.push({a,first,pg})};
   nuevo(true);rows.forEach(x=>{const h=x.h?44:x.hh;if(h>hh)nuevo(false);hh-=h;pg.push(x)});
  });
- const total=meta.length+1;
+ const total=meta.length+1,refs=p=>p.refs.map(x=>`<u><em>${esc(x.r)}</em>${may&&x.p!=null?`<s>${$$(x.p)}</s>`:''}</u>`).join('');
  meta.forEach((m,i)=>{const t=TXT[m.a.k]||['',''];
-  pages.push(`<div class="pg"><div class="hd">${m.first?`<div style="background:#000;color:#fff;padding:22px 26px;border-radius:6px;border-left:12px solid #C8102E"><div style="font:600 12px Figtree;letter-spacing:.16em;color:#ddd;margin-bottom:6px">CATÁLOGO MAYORISTA</div><div style="font:800 40px 'Bricolage Grotesque'">${m.a.n}</div><div style="font-size:14px;margin-top:4px;color:#ddd">${t[0]}</div></div>`:`<div style="display:flex;justify-content:space-between;font:800 15px 'Bricolage Grotesque'"><span style="color:#C8102E">${m.a.n}</span><span>CATÁLOGO MAYORISTA</span></div>`}</div><div style="height:16px"></div>${m.pg.map(x=>x.h?`<h4>${esc(x.h)}</h4>`:`<div class="gr" style="height:${x.hh-14}px;margin-bottom:14px">${x.r.map(p=>`<div class="ca"><img src="${esc(src(p))}" crossorigin="anonymous" onerror="im(this)"><b>${esc(p.name)}</b><span>${esc(p.med)}</span><i>${p.price==null?'Consultar precio':$$(p.price)}</i></div>`).join('')}</div>`).join('')}${ft(i+2,total)}</div>`)});
+  pages.push(`<div class="pg"><div class="hd">${m.first?`<div style="background:#000;color:#fff;padding:22px 26px;border-radius:6px;border-left:12px solid #C8102E"><div style="font:600 12px Figtree;letter-spacing:.16em;color:#ddd;margin-bottom:6px">CATÁLOGO ${T}</div><div style="font:800 40px 'Bricolage Grotesque'">${m.a.n}</div><div style="font-size:14px;margin-top:4px;color:#ddd">${t[0]}</div></div>`:`<div style="display:flex;justify-content:space-between;font:800 15px 'Bricolage Grotesque'"><span style="color:#C8102E">${m.a.n}</span><span>CATÁLOGO ${T}</span></div>`}</div><div style="height:16px"></div>${m.pg.map(x=>x.h?`<h4>${esc(x.h)}</h4>`:`<div class="gr" style="height:${x.hh-14}px;margin-bottom:14px">${x.r.map(p=>`<div class="ca"><img src="${esc(src(p))}" crossorigin="anonymous" onerror="im(this)"><b>${esc(p.name)}</b><div style="width:100%;margin-top:6px">${refs(p)}</div></div>`).join('')}</div>`).join('')}${ft(i+2,total)}</div>`)});
  const {jsPDF}=window.jspdf,doc=new jsPDF('p','mm','a4'),root=$('#pdfroot');
  try{for(let i=0;i<pages.length;i++){
   tx.textContent=`Página ${i+1} de ${pages.length}`;bar.style.width=Math.round(i/pages.length*100)+'%';
@@ -201,28 +184,29 @@ async function pdf(){
   await Promise.all(imgs.map(m=>m.complete?1:new Promise(r=>{m.onload=m.onerror=r})));
   const cv=await html2canvas(root.firstChild,{scale:1.5,useCORS:true,backgroundColor:'#fff'});
   if(i)doc.addPage();doc.addImage(cv.toDataURL('image/jpeg',.85),'JPEG',0,0,210,297);
- }doc.save('Catalogo-Mayorista-El-Tapetero.pdf')}catch(e){alert('No se pudo crear el PDF. Abre el sitio desde GitHub Pages (no como archivo local).')}
+ }doc.save(`Catalogo-${may?'Mayorista':'Minorista'}-El-Tapetero.pdf`)}catch(e){alert('No se pudo crear el PDF. Abre el sitio desde GitHub Pages (no como archivo local).')}
  root.innerHTML='';ov.classList.add('hidden');ov.classList.remove('grid');
 }
 /* eventos */
 document.addEventListener('click',e=>{
- const t=e.target.closest('[data-o],[data-a],[data-x],[data-q],[data-s],[data-d]');if(!t)return;
+ const t=e.target.closest('[data-o],[data-x],[data-s],[data-d],[data-pdf]');if(!t)return;
  if(t.dataset.d!==undefined)gs(+t.dataset.d);
  else if(t.dataset.o)openM(t.dataset.o);
- else if(t.dataset.a)add(t.dataset.a);
+ else if(t.dataset.pdf)pdf(t.dataset.pdf);
  else if(t.dataset.x)$('#'+t.dataset.x).classList.add('hidden');
- else if(t.dataset.q){const[id,d]=t.dataset.q.split(',');if(d=='0')delete cart[id];else{cart[id]+=+d;if(cart[id]<1)delete cart[id]}save();drawer()}
  else if(t.dataset.s)document.querySelector(`[data-c="${CSS.escape(t.dataset.s)}"]`).scrollIntoView();
 });
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){$('#md').classList.add('hidden');$('#dr').classList.add('hidden')}});
-$('#cb').onclick=()=>drawer(true);$('#clr').onclick=()=>{cart={};save();drawer()};$('#pdfb').onclick=pdf;
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$('#md').classList.add('hidden')});
 $('#mb').onclick=()=>$('#mn').classList.toggle('hidden');$('#mn').onclick=()=>$('#mn').classList.add('hidden');
 $('#q').addEventListener('input',e=>{if(e.target.value.trim()){if(location.hash!=='#/buscar')location.hash='#/buscar';else busca(e.target.value)}else if(location.hash.startsWith('#/buscar'))location.hash='#/'});
-addEventListener('hashchange',route);$('#yr').textContent=new Date().getFullYear();save();
-fetch(C.xl+'?v='+Date.now()).then(r=>{if(!r.ok)throw 0;return r.arrayBuffer()}).then(parse).then(()=>drawer()).catch(()=>{
- $('#app').innerHTML=`<div class="max-w-xl mx-auto px-4 py-24 text-center"><h1 class="text-3xl font-extrabold">Cargando el catálogo</h1><p class="mt-3 text-neutral-600">No se encontró <b>${C.xl}</b> junto a esta página. Si estás probando en tu computador, selecciona el Excel aquí:</p><input id="fx" type="file" accept=".xlsx" class="mt-6"></div>`;
+addEventListener('hashchange',route);$('#yr').textContent=new Date().getFullYear();
+document.querySelectorAll('a[href^="https://wa.me/"]').forEach(a=>a.href=wa0);
+(async()=>{let buf=null;
+ for(const f of C.xl){try{const r=await fetch(f+'?v='+Date.now());if(r.ok){buf=await r.arrayBuffer();break}}catch(e){}}
+ if(buf)return parse(buf);
+ $('#app').innerHTML=`<div class="max-w-xl mx-auto px-4 py-24 text-center"><h1 class="text-3xl font-extrabold">Cargando el catálogo</h1><p class="mt-3 text-neutral-600">No se encontró <b>${C.xl[0]}</b> junto a esta página. Si estás probando en tu computador, selecciona el Excel aquí:</p><input id="fx" type="file" accept=".xlsx" class="mt-6"></div>`;
  $('#fx').onchange=e=>e.target.files[0].arrayBuffer().then(parse);
-});
+})();
 </script>
 </body>
 </html>
